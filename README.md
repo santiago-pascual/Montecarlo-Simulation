@@ -1,5 +1,7 @@
 # Monte Carlo Trading Simulator (C++)
 
+[![C++ CI](https://github.com/santiago-pascual/Montecarlo-Simulation/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/santiago-pascual/Montecarlo-Simulation/actions/workflows/ci.yml)
+
 A small, reproducible C++17 quantitative-finance project for studying fixed-dollar trade outcomes. It simulates independent trading paths and compares their terminal equity distribution with an **exact binomial model**.
 
 ## Features
@@ -62,6 +64,26 @@ For the default parameters, the **exact analytical values** (not simulated outpu
 | Terminal capital standard deviation | $1,243.73 |
 
 The empirical values and percentiles are printed by the program and depend on the chosen random seed. With sufficiently many simulations, sample mean and variance should approach these theoretical values. The distribution is discrete and binomial, not necessarily normal.
+
+### Empirical validation
+
+10,000 independent paths, 100 trades per path, seed 42. Results from the C++ CSV export; all local mathematical and reproducibility tests passed.
+
+| Metric | Theoretical | Empirical | Relative error |
+|---|---:|---:|---:|
+| Mean (USD) | 13,750.00 | 13,752.27 | 0.0165% |
+| Variance (USD²) | 1,546,875.00 | 1,539,480.02 | 0.4781% |
+| Standard deviation (USD) | 1,243.73 | 1,240.76 | 0.2393% |
+
+### Terminal capital distribution
+
+![Terminal capital distribution](figures/terminal_distribution.svg)
+
+### Monte Carlo mean convergence
+
+![Mean convergence](figures/mean_convergence.svg)
+
+The histogram uses observed terminal capital frequencies. The convergence chart uses cumulative means sampled every 100 paths in their original simulation order. Neither figure uses synthetic resampling or a fitted normal distribution.
 
 ### CSV export
 
